@@ -23,7 +23,7 @@
 		, bdDate
 	)
 	values(
-	"홍길동"
+	#{bdName}
 	, #{bdTitle}
 	, #{bdContent}
 	, now()

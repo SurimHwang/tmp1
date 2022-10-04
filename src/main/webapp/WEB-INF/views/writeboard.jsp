@@ -11,10 +11,7 @@
 	<table border="1">
 	<tr>
 		<th>NAME</th>
-		<td><textarea rows="1" cols="60" readonly="readonly" name="bdName"><%
-		//session = request.getSession();
-		//out.print(session.getAttribute("user"));
-		%></textarea></td>
+		<td><%String name = (String)session.getAttribute("userName");%><%=name %></td>
 	</tr>
 	<tr>
 		<th>TITLE</th>
