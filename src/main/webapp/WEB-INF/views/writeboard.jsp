@@ -11,7 +11,7 @@
 	<table border="1">
 	<tr>
 		<th>NAME</th>
-		<td><%String name = (String)session.getAttribute("userName");%><%=name %></td>
+		<td><textarea rows="1" cols="60" name="bdName" readonly="readonly"><%String name = (String)session.getAttribute("userName");%><%=name %></textarea></td>
 	</tr>
 	<tr>
 		<th>TITLE</th>
