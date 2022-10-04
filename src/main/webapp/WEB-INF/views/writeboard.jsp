@@ -10,6 +10,13 @@
 	<form action="/insertboard" method="get">
 	<table border="1">
 	<tr>
+		<th>NAME</th>
+		<td><textarea rows="1" cols="60" readonly="readonly" name="bdName"><%
+		//session = request.getSession();
+		//out.print(session.getAttribute("user"));
+		%></textarea></td>
+	</tr>
+	<tr>
 		<th>TITLE</th>
 		<td><textarea rows="1" cols="60" name="bdTitle"></textarea></td>
 	</tr>

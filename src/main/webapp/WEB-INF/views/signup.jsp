@@ -7,7 +7,7 @@
 </head>
 <body>
  	<h3>회원가입</h3>
-	<form action="/signUp" method="post">
+	<form action="/signUp" method="get">
 		이메일 : <input name="email" type="text" /> <br /> 
 		이름 : <input name="userName" type="text" /><br />
 		<button type="submit">회원가입</button>

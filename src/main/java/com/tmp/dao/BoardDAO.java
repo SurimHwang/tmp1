@@ -14,5 +14,5 @@ public interface BoardDAO {
 	
 	void deleteBoard(String title); //게시글 삭제
 	
-	void updateBoard(String title, String content); //게시글 수정
+	void updateBoard(BoardDTO dto); //게시글 수정
 }

@@ -1,14 +1,18 @@
 package com.tmp.controller;
 
-import java.sql.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.tmp.dto.BoardDTO;
+import com.tmp.dto.TestDTO;
 import com.tmp.service.BoardServices;
 
 @Controller
@@ -37,13 +41,22 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="writeboard.do")
-	public String writeBoard() {
+	public String writeBoard(HttpServletRequest request, HttpSession session, Model model) throws Exception{
+		TestDTO dto = (TestDTO)session.getAttribute("user");
+		session.setAttribute("user", dto);
+//		String name = request.getParameter("userName");
+//		System.out.println(dto);
+//		model.addAttribute("userName", name);
+		
 		return "writeboard";
 	}
 
 	@RequestMapping(value="/insertboard", method = {RequestMethod.GET, RequestMethod.POST})
 	public String insertBoard(BoardDTO dto) {
 		BoardServices.insertBoard(dto);
+		System.out.println(dto.getBdTitle());
+		System.out.println(dto.getBdContent());
+		System.out.println(dto.getBdName());
 		System.out.println("저장 성공");
 		
 		return "forward:/boardlist.do";
@@ -52,29 +65,21 @@ public class BoardController {
 	@RequestMapping(value="/deleteboard.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteBoard(HttpServletRequest request)throws Exception {
 		String title = request.getParameter("title");
+		
 		BoardServices.deleteBoard(title);
 		System.out.println("삭제 성공");
 		
 		return "redirect:/boardlist.do";
 	}
 	
-	@RequestMapping(value="/updateboard.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/updateboard", method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateBoard(BoardDTO dto) {
-		BoardServices.insertBoard(dto);
+		System.out.println(dto.getBdContent());
+		System.out.println(dto.getBdTitle());
+		
+		BoardServices.updateBoard(dto);
 		System.out.println("수정 성공");
 		
-		return "redirect:/selectone.do";
+		return "forward:/boardlist.do";
 	}
-	
-	@RequestMapping(value="/updatepage", method = {RequestMethod.GET, RequestMethod.POST})
-	public String updatePage(Model model, HttpServletRequest request) throws Exception{
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		
-		model.addAttribute(bd);
-		System.out.println("수정 페이지");
-		
-		return "updatepage";
-	}
-	
 }

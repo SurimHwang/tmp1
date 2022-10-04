@@ -26,7 +26,7 @@
 		</c:forEach>
 		<tr>
 			<td colspan="6" align="right">
-				<input type="button" value="글쓰기" onclick="location='writeboard.do'">
+				<a href="writeboard.do?userName=${userName}">글쓰기</a>
 			</td>
 		</tr>
 	</table>

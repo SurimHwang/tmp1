@@ -13,5 +13,5 @@ public interface BoardServices {
 	
 	void deleteBoard(String title);
 	
-	void updateBoard(String title, String content);
+	void updateBoard(BoardDTO dto);
 }

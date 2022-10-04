@@ -6,6 +6,7 @@
 <title>SelectOne</title>
 </head>
 <body>
+<form action="/updateboard" method="get">
 	<table border="1">
 		<tr>
 			<th>NAME</th>
@@ -13,21 +14,19 @@
 		</tr>
 		<tr>
 			<th>TITLE</th>
-			<td>${board.bdTitle}</td>
+			<td><textarea rows="1" cols="60" readonly="readonly" name="bdTitle">${board.bdTitle}</textarea></td>
 		</tr>
 		<tr>
 			<th>CONTENT</th>
-			<td><textarea rows="10" cols="60" readonly="readonly">${board.bdContent}</textarea></td>
-		</tr>
-		<tr>
-			<td><a href="updatepage.do?title=${board.bdTitle}?content=${board.bdContent}">수정</a>&nbsp;&nbsp;
-			<a href="deleteboard.do?title=${board.bdTitle}?content=${board.bdContent}">삭제</a>&nbsp;&nbsp;
-			<button onclick="location='boardlist.do'">목록</button>
-	</td>
+			<td><textarea rows="10" cols="60" name="bdContent">${board.bdContent}</textarea></td>
 		</tr>
 	</table>
+	<button type="submit" formmethod="get">수정</button>
 	</form>
+	<a href="deleteboard.do?title=${board.bdTitle}">삭제</a>&nbsp;&nbsp;
+	<button onclick="location='boardlist.do'">목록</button>
 	
 </body>
 </html>
 
+      

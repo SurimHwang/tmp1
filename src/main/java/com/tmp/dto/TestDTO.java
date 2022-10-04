@@ -1,7 +1,6 @@
 package com.tmp.dto;
 
 public class TestDTO {
-	private String table;
     private String email;
     private String userName;
 
@@ -20,4 +19,10 @@ public class TestDTO {
     public void setUserName(String userName) {
          this.userName = userName;
     }
+
+	@Override
+	public String toString() {
+		return "TestDTO [email=" + email + ", userName=" + userName + "]";
+	}
+    
 }

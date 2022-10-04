@@ -34,8 +34,9 @@ public class BoardServicesImpl implements BoardServices {
 	public void deleteBoard(String title) {
 		boardDAO.deleteBoard(title);
 	}
-	
-	public void updateBoard(String title, String content) {
-		boardDAO.updateBoard(title, content);
-	}
+
+	public void updateBoard(BoardDTO dto) {
+		boardDAO.updateBoard(dto);
+	};
+
 }
