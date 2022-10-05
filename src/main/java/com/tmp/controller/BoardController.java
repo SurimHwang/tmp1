@@ -30,10 +30,13 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/selectone", method = RequestMethod.GET)
-	public String selectOne(Model model, HttpServletRequest request) throws Exception {
+	public String selectOne(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		String title = request.getParameter("title");
 		
 		BoardDTO board = BoardServices.selectOne(title);
+		
+//		TestDTO dto = (TestDTO)session.getAttribute("user");
+//		session.setAttribute("userName", dto.getUserName()); 
 		
 		model.addAttribute("board", board);
 		
@@ -41,13 +44,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="writeboard.do")
-	public String writeBoard(HttpServletRequest request, HttpSession session, Model model) throws Exception{
-		TestDTO dto = (TestDTO)session.getAttribute("user");
-		session.setAttribute("userName", dto.getUserName()); 
-		System.out.println(dto.getUserName());
-//		String name = request.getParameter("userName");
-//		System.out.println(dto);
-//		model.addAttribute("userName", name);
+	public String writeBoard(HttpSession session, Model model) {
+	
 		
 		return "writeboard";
 	}

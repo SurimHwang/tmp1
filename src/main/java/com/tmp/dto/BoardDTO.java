@@ -3,7 +3,6 @@ package com.tmp.dto;
 import java.sql.Date;
 
 public class BoardDTO {
-	private String table;
 	private String bdName;
 	private String bdTitle;
 	private String bdContent;

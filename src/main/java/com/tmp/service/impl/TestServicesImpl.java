@@ -6,17 +6,15 @@ import com.tmp.service.TestServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class TestServicesImpl implements TestServices {
 
 	@Autowired
 	private TestDAO testDAO;
 
-	public List<TestDTO> login(TestDTO dto) {
+	public TestDTO login(TestDTO dto) {
 		
-		List<TestDTO> dao = testDAO.login(dto);
+		TestDTO dao = testDAO.login(dto);
 		
 		if (dao != null) {
 			return dao;

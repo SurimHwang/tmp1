@@ -2,7 +2,6 @@ package com.tmp.dto;
 import java.util.Date;
 
 public class SampleDTO {
-	private String table;
     private long id;
     private Date createDate;
     private String email;

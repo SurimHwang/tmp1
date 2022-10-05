@@ -1,8 +1,6 @@
 package com.tmp.controller;
 
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +19,21 @@ public class TestController {
 	private TestServices testServices;
 
 	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
-	public String login(Model model, TestDTO dto, HttpSession session, HttpServletRequest request) throws Exception {
-		String name = request.getParameter("userName");
-		System.out.println(name);
+	public String login(Model model, TestDTO dto, HttpSession session) {
 
-		List<TestDTO> ts = testServices.login(dto);
+		TestDTO ts = testServices.login(dto);
 		
-		if (!ts.isEmpty()) {
-			List<TestDTO> login = testServices.login(dto);
+		if (ts!=null) {
+			TestDTO login = testServices.login(dto);
 
-			model.addAttribute("userlist", login);
-			//model.addAttribute("userName", name);
+			model.addAttribute("user", login);
 			
 			System.out.println("로그인");
-			session.setAttribute("user", login.get(0));
+			
+			session.setAttribute("user", login);
+			
+			TestDTO dto_ = (TestDTO)session.getAttribute("user");
+			session.setAttribute("userName", dto_.getUserName()); 
 
 			return "forward:/boardlist.do";
 		}
