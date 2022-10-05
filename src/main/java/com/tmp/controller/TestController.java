@@ -28,13 +28,14 @@ public class TestController {
 
 			model.addAttribute("user", login);
 			
-			System.out.println("ë¡œê·¸ì¸");
+			System.out.println("·Î±×ÀÎ");
 			
 			session.setAttribute("user", login);
 			
 			TestDTO dto_ = (TestDTO)session.getAttribute("user");
 			session.setAttribute("userName", dto_.getUserName()); 
 
+			System.out.println(dto_.getUserName());
 			return "forward:/boardlist.do";
 		}
 		return "redirect:/";
@@ -50,7 +51,7 @@ public class TestController {
 
 		testServices.signUp(dto);
 
-		System.out.println("íšŒì› ê°€ì… ì„±ê³µ.");
+		System.out.println("È¸¿ø°¡ÀÔ ¼º°ø");
 
 		return "forward:/boardlist.do";
 	}
@@ -60,8 +61,6 @@ public class TestController {
 
 		testServices.updateUserName(dto);
 
-		System.out.println("ì‚¬ìš©ì ì´ë¦„ ìˆ˜ì • ì„±ê³µ.");
-
 		return "sample";
 	}
 
@@ -69,8 +68,6 @@ public class TestController {
 	public String deleteUser(TestDTO dto) {
 
 		testServices.deleteUser(dto);
-
-		System.out.println("ì‚¬ìš©ì ì‚­ì œ ì„±ê³µ.");
 
 		return "sample";
 	}

@@ -17,9 +17,12 @@ public class ReplyController {
 	@Autowired
 	private ReplyServices replyServices;
 
-	@RequestMapping(value = "/insertreply", method = {RequestMethod.POST, RequestMethod.GET})
-	public String insertReply(Model model, ReplyDTO dto, HttpSession session) {
-		replyServices.insertReply(dto);
-		return "forward:/boardlist.do";
+	// ¥Ò±€ ¿€º∫
+	@RequestMapping(value = "/replyWrite", method = RequestMethod.GET)
+	public String replyWrite(ReplyDTO dto) {
+		
+		replyServices.replyWrite(dto);
+		
+		return "redirect:/selectone?bno=" + dto.getBno();
 	}
 }

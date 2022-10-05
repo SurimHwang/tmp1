@@ -7,7 +7,7 @@ import java.util.List;
 public interface BoardServices {
 	List<BoardDTO> selectAll();
 	
-	BoardDTO selectOne(String title);
+	BoardDTO selectOne(int bno);
 	
 	void insertBoard(BoardDTO dto);
 	

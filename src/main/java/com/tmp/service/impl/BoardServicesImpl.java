@@ -21,8 +21,8 @@ public class BoardServicesImpl implements BoardServices {
 		return dao;
 	}
 	
-	public BoardDTO selectOne(String title){
-		return boardDAO.selectOne(title);
+	public BoardDTO selectOne(int bno){
+		return boardDAO.selectOne(bno);
 		
 	}; 
 	

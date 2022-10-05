@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tmp.dao.ReplyDAO">
 
-	<insert id="insertReply" parameterType="com.tmp.dto.ReplyDTO">
-	insert into tmp_reply(
-		rpWriter
-		, rpContent
-		, rpDate
-	)
-	values(
-	  #{rpWriter}
-	, #{rpContent}
-	, now()
-	)
+	<!-- 댓글 조회 -->
+	<select id="replyList" parameterType="int" resultType="com.tmp.dto.ReplyDTO">
+		select
+			rno, bno, rpWriter, rpContent, rpDate
+		from tmp_reply
+			where bno = #{bno}		
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="com.tmp.dto.ReplyDTO">
+		insert into tmp_reply(bno, rpWriter, rpContent, rpDate)
+			value(#{bno}, #{rpWriter}, #{rpContent}, now())
 	</insert>
+		
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="com.tmp.dto.ReplyDTO">
+		update tmp_reply set
+			rpWriter = #{rpWriter},
+			rpContent = #{rpContent}
+		where rno = #{rno}
+			and bno = #{bno}	
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="com.tmp.dto.ReplyDTO">
+		delete from tmp_reply
+		where rno = #{rno}
+			and bno = ${bno}	
+	</delete>
 </mapper>

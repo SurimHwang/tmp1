@@ -3,12 +3,19 @@ package com.tmp.dto;
 import java.sql.Date;
 
 public class BoardDTO {
+	private int bno;
 	private String bdName;
 	private String bdTitle;
 	private String bdContent;
 	private Date bdDate;
 	
 	
+	public int getBno() {
+		return bno;
+	}
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
 	public String getBdName() {
 		return bdName;
 	}
