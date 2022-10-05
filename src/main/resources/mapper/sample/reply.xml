@@ -4,7 +4,8 @@
 
 	<insert id="insertReply" parameterType="com.tmp.dto.ReplyDTO">
 	insert into tmp_reply(
-		rpWriter
+		bno
+		, rpWriter
 		, rpContent
 		, rpDate
 	)
