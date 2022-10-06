@@ -35,7 +35,16 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   		<constructor-arg ref="dataSource" />
 	</bean>
-
+	
+	<!-- 파일 업로드 설정 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 파일 사이즈 설정 가능 byte 단위
+		<property name="maxUploadSize" value="100000" />
+		-->
+	</bean>
 </beans>
+
+	
 
 

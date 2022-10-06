@@ -6,13 +6,13 @@ import com.tmp.dto.BoardDTO;
 
 public interface BoardDAO {
 
-	List<BoardDTO> selectAll(); //게시판 리스트 출력
+	List<BoardDTO> selectAll();
 	
-	BoardDTO selectOne(String title); //게시글 한 개 보기 
+	BoardDTO selectOne(int bno); 
 	
-	void insertBoard(BoardDTO dto); //게시판 글쓰기
+	void insertBoard(BoardDTO dto); 
 	
-	void deleteBoard(String title); //게시글 삭제
+	void deleteBoard(String title); 
 	
-	void updateBoard(BoardDTO dto); //게시글 수정
+	void updateBoard(BoardDTO dto);
 }

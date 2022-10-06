@@ -8,26 +8,30 @@
 		from tmp_board
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="com.tmp.dto.BoardDTO">
+	<select id="selectOne" parameterType="int" resultType="com.tmp.dto.BoardDTO">
 		select 
 			*
 		from tmp_board
-		where bdTitle= #{value}
+		where bno= #{bno}
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.tmp.dto.BoardDTO">
+	
+	<![CDATA[
 	insert into tmp_board(
 		bdName
 		, bdTitle
 		, bdContent
 		, bdDate
+		, bdFileName
 	)
 	values(
 	#{bdName}
 	, #{bdTitle}
 	, #{bdContent}
 	, now()
-	)
+	, #{bdFileName}
+	)]]>
 	</insert>
 	
 	<delete id="deleteBoard" parameterType="String">
@@ -41,5 +45,4 @@
 	set bdContent=#{bdContent}
 	where bdTitle=#{bdTitle}
 	</update>
-
 </mapper>

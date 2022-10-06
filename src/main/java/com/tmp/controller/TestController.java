@@ -35,6 +35,7 @@ public class TestController {
 			TestDTO dto_ = (TestDTO)session.getAttribute("user");
 			session.setAttribute("userName", dto_.getUserName()); 
 
+			System.out.println(dto_.getUserName());
 			return "forward:/boardlist.do";
 		}
 		return "redirect:/";
@@ -50,7 +51,7 @@ public class TestController {
 
 		testServices.signUp(dto);
 
-		System.out.println("회원 가입 성공.");
+		System.out.println("회원가입 성공");
 
 		return "forward:/boardlist.do";
 	}
@@ -60,8 +61,6 @@ public class TestController {
 
 		testServices.updateUserName(dto);
 
-		System.out.println("사용자 이름 수정 성공.");
-
 		return "sample";
 	}
 
@@ -69,8 +68,6 @@ public class TestController {
 	public String deleteUser(TestDTO dto) {
 
 		testServices.deleteUser(dto);
-
-		System.out.println("사용자 삭제 성공.");
 
 		return "sample";
 	}

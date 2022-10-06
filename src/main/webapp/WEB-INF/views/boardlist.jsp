@@ -8,10 +8,12 @@
 <body>
 	<h3>게시판</h3>
 	<table border="1">
+		<col width="30px">
 		<col width="80px">
 		<col width="200px">
 		<col width="100px">
 		<tr>
+			<th>No</th>
 			<th>Name</th>
 			<th>Title</th>
 			<th>Date</th>
@@ -19,8 +21,9 @@
 		</tr>
 		<c:forEach items="${boardlist}" var="item">
 			<tr>
+				<td>${item.bno}</td>
 				<td>${item.bdName}</td>
-				<td><a href="selectone?title=${item.bdTitle}">${item.bdTitle}</a></td>
+				<td><a href="selectone?bno=${item.bno}">${item.bdTitle}</a></td>
 				<td>${item.bdDate}</td>
 			</tr>
 		</c:forEach>

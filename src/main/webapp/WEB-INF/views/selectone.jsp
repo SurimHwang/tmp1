@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ page language="java" isELIgnored="false"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
@@ -23,47 +23,44 @@
 		</tr>
 	</table>
 	<button type="submit" formmethod="get">수정</button>
-	</form>
-	<a href="deleteboard.do?title=${board.bdTitle}">삭제</a>&nbsp;&nbsp;
-	<button onclick="location='boardlist.do'">목록</button>
-	<!-- 댓글 시작 -->
-	<ul>
-		<li>
-			<div>
-				<p>첫번째 댓글 작성자</p>
-				<p>첫번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>두번째 댓글 작성자</p>
-				<p>두번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>세번째 댓글 작성자</p>
-				<p>세번째 댓글</p>
-			</div>
-		</li>
-	</ul>
-	
-	<div>
-	<form action="/insertreply" method="get">
-		<p>
-		<label>댓글</label><br/>
-		 <label>작성자</label>
-		 <input type="text" name="rpWriter" value=<%String name = (String)session.getAttribute("userName");%><%=name %> readonly="readonly">
-		</p>
-		<p>
-		<textarea rows="5" cols="50" name="rpContent"></textarea>
-		</p>
-		<p>
-		<button type="submit">작성</button>
-		</p>
-	</form>
-	</div>
+</form>
+<a href="deleteboard.do?title=${board.bdTitle}">삭제</a>&nbsp;&nbsp;
+<button onclick="location='boardlist.do'">목록</button>
+
+<!-- 댓글 시작 -->	
+<ul>
+	<c:forEach items="${reply}" var="reply">
+	<li>
+		<div>
+		<form action="/replyModify" method="get">
+			<input type="hidden" name="rno" value="${reply.rno}">
+			<input type="hidden" name="bno" value="${reply.bno}">
+			<p>${reply.rpWriter}  |  ${reply.rpDate}</p>
+			<textarea rows="3" cols="40" name="rpContent" >${reply.rpContent}</textarea>
+			<button type="submit">수정</button>
+			<button formaction="/replyDelete" type="submit">삭제</button>
+		</form>
+		</div>
+	</li>
+	</c:forEach>
+</ul>
+
+<form action="/replyWrite" method="get">
+	<p>
+	<label>댓글</label><br/>
+	 <label>작성자</label>
+	 <input type="text" name="rpWriter" value=<%String name = (String)session.getAttribute("userName");%><%=name %> readonly="readonly">
+	</p>
+	<p>
+	<textarea rows="5" cols="50" name="rpContent"></textarea>
+	</p>
+	<p>
+	<input type="hidden" name="bno" value="${board.bno}">
+	<button type="submit">작성</button>
+	</p>
+</form>
 	<!-- 댓글 끝 -->
+	
 </body>
 </html>
 
