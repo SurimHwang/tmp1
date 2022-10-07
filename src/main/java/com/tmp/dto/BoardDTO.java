@@ -11,7 +11,7 @@ public class BoardDTO {
 	private String bdContent;
 	private Date bdDate;
 	private String bdFileName;
-//	private MultipartFile uploadFile;
+	private MultipartFile uploadFile;
 	
 	
 	public String getFileName() {
@@ -20,12 +20,12 @@ public class BoardDTO {
 	public void setFileName(String fileName) {
 		this.bdFileName = fileName;
 	}
-//	public MultipartFile getUploadFile() {
-//		return uploadFile;
-//	}
-//	public void setUploadFile(MultipartFile uploadFile) {
-//		this.uploadFile = uploadFile;
-//	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 	public int getBno() {
 		return bno;
 	}

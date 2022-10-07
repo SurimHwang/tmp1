@@ -21,6 +21,12 @@
 			<th>CONTENT</th>
 			<td><textarea rows="10" cols="60" name="bdContent">${board.bdContent}</textarea></td>
 		</tr>
+		<c:if test="${board.fileName ne null}">
+			<tr>
+				<td>첨부파일</td>
+				<td align="left"><a href="fileDownload.do?fileName=${board.fileName}">${board.fileName}</a></td>
+			</tr>
+			</c:if>
 	</table>
 	<button type="submit" formmethod="get">수정</button>
 </form>

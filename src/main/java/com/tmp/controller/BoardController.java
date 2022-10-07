@@ -10,11 +10,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tmp.dto.BoardDTO;
@@ -57,29 +60,26 @@ public class BoardController {
 		return "writeboard";
 	}
 
-	@RequestMapping(value="/insertboard", method = {RequestMethod.GET, RequestMethod.POST})
-	public String insertBoard(BoardDTO dto, @RequestParam("uploadFile") MultipartFile file) throws IllegalStateException, IOException {
-		
+	@PostMapping(value="/insertboard") //, method = RequestMethod.POST
+	public String insertBoard(BoardDTO dto, @RequestParam("uploadFile")MultipartFile uploadFile) throws IllegalStateException, IOException {
+//		, @RequestParam("uploadFile") MultipartFile uploadFile
 		// 파일 업로드 처리
 					String fileName=null;
-//					MultipartFile uploadFile = dto.getUploadFile();
-					System.out.println(file);
-//					System.out.println(uploadFile);
-//					if (uploadFile!=null) {
-//						String originalFileName = uploadFile.getOriginalFilename();
-//						String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
-//						UUID uuid = UUID.randomUUID();	//UUID 구하기
-//						fileName=uuid+"."+ext;
-//						uploadFile.transferTo(new File("C:\\upload\\" + fileName));
-//					}
-//					dto.setFileName(fileName);
+					if (uploadFile!=null) {
+						String originalFileName = uploadFile.getOriginalFilename();
+						String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+						UUID uuid = UUID.randomUUID();	//UUID 구하기
+						fileName=uuid+"."+ext;
+						uploadFile.transferTo(new File("C:\\upload\\" + fileName));
+					}
+					dto.setFileName(fileName);
 					
 		BoardServices.insertBoard(dto);
 		
 		System.out.println("저장 성공");
 		
 		
-		return "forward:/boardlist.do";
+		return "redirect:/boardlist.do";
 	}
 	
 	@RequestMapping(value="/deleteboard.do", method = {RequestMethod.GET, RequestMethod.POST})
