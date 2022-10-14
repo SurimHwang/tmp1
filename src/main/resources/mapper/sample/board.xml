@@ -15,24 +15,52 @@
 		where bno= #{bno}
 	</select>
 	
-	<insert id="insertBoard" parameterType="com.tmp.dto.BoardDTO">
+	<insert id="insertBoard" parameterType="com.tmp.dto.BoardDTO" useGeneratedKeys="true" keyProperty="bno">
 	
 	<![CDATA[
 	insert into tmp_board(
-		bdName
+		 bdName
 		, bdTitle
 		, bdContent
 		, bdDate
-		, bdFileName
 	)
 	values(
-	#{bdName}
+	 #{bdName}
 	, #{bdTitle}
 	, #{bdContent}
 	, now()
-	, #{bdFileName}
 	)]]>
 	</insert>
+	
+	<insert id="insertFile" parameterType="com.tmp.dto.FileDTO">
+		insert into tmp_file(
+		bno,
+		orgFileName,
+		metaFileName,
+		fileUrl
+		)
+		values(
+		#{bno},
+		#{orgFileName},
+		#{metaFileName},
+		#{fileUrl}
+		)
+	</insert>
+	
+	 <select id="selectFile" parameterType="int" resultType="com.tmp.dto.FileDTO">
+		select 
+		*
+		from tmp_file
+		where bno=#{bno} 
+	</select>
+	
+	<select id="selectDownFile" parameterType="int" resultType="com.tmp.dto.FileDTO">
+		select 
+		*
+		from tmp_file
+		where fno=#{fno} 
+	</select>
+	
 	
 	<delete id="deleteBoard" parameterType="String">
 	delete 
@@ -40,9 +68,21 @@
 	where bdTitle="${value}"
 	</delete>
 	
+	<delete id="deleteFile" parameterType="int">
+	delete 
+	from tmp_file
+	where bno=#{bno}
+	</delete>
+	
+	<delete id="deleteReply" parameterType="int">
+	delete 
+	from tmp_reply
+	where bno=#{bno}
+	</delete>
+	
 	<update id="updateBoard" parameterType="com.tmp.dto.BoardDTO">
 	update tmp_board
-	set bdContent=#{bdContent}
-	where bdTitle=#{bdTitle}
+	set bdContent=#{bdContent}, bdTitle=#{bdTitle}
+	where bno=#{bno}
 	</update>
 </mapper>

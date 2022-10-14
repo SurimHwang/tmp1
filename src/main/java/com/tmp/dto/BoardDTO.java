@@ -1,8 +1,11 @@
 package com.tmp.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
+
+//import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDTO {
 	private int bno;
@@ -10,22 +13,10 @@ public class BoardDTO {
 	private String bdTitle;
 	private String bdContent;
 	private Date bdDate;
-	private String bdFileName;
-	private MultipartFile uploadFile;
 	
+	private List<MultipartFile> files;
+	private List<FileDTO> filedto;
 	
-	public String getFileName() {
-		return bdFileName;
-	}
-	public void setFileName(String fileName) {
-		this.bdFileName = fileName;
-	}
-	public MultipartFile getUploadFile() {
-		return uploadFile;
-	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
-	}
 	public int getBno() {
 		return bno;
 	}
@@ -43,7 +34,7 @@ public class BoardDTO {
 	}
 	public void setBdTitle(String bdTitle) {
 		this.bdTitle = bdTitle;
-	}  
+	}
 	public String getBdContent() {
 		return bdContent;
 	}
@@ -56,6 +47,20 @@ public class BoardDTO {
 	public void setBdDate(Date bdDate) {
 		this.bdDate = bdDate;
 	}
-
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
+	public List<FileDTO> getFiledto() {
+		return filedto;
+	}
+	public void setFiledto(List<FileDTO> filedto) {
+		this.filedto = filedto;
+	}
 	
+	
+
+
 }

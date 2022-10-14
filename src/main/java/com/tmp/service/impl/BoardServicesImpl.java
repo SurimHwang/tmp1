@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tmp.dao.BoardDAO;
 import com.tmp.dto.BoardDTO;
+import com.tmp.dto.FileDTO;
 import com.tmp.service.BoardServices;
 
 
@@ -22,8 +23,7 @@ public class BoardServicesImpl implements BoardServices {
 	}
 	
 	public BoardDTO selectOne(int bno){
-		return boardDAO.selectOne(bno);
-		
+		return boardDAO.selectOne(bno);	
 	}; 
 	
 	public void insertBoard(BoardDTO dto) {
@@ -37,5 +37,25 @@ public class BoardServicesImpl implements BoardServices {
 	public void updateBoard(BoardDTO dto) {
 		boardDAO.updateBoard(dto);
 	};
+	
+	public void insertFile(FileDTO fdto) {
+		boardDAO.insertFile(fdto);
+	}
+	
+	public List<FileDTO> selectFile(int bno){
+		List<FileDTO> dao = boardDAO.selectFile(bno);
+		return dao;
+	};
 
+	public FileDTO selectDownFile(int fno) {
+		return boardDAO.selectDownFile(fno);
+	};
+	
+	public void deleteFile(int bno) {
+		boardDAO.deleteFile(bno);
+	};
+	
+	public void deleteReply(int bno) {
+		boardDAO.deleteReply(bno);
+	};
 }

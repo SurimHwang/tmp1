@@ -10,41 +10,50 @@
 	<form action="/updateboard" method="get">
 		<table border="1">
 			<tr>
+				<th>BNO</th>
+				<td><input type="hidden" name="bno" value="${board.bno}">${board.bno}</td>
+			</tr>
+			<tr>
 				<th>NAME</th>
 				<td>${board.bdName}</td>
 			</tr>
 			<tr>
 				<th>TITLE</th>
-				<td><textarea rows="1" cols="60" readonly="readonly"
-						name="bdTitle">${board.bdTitle}</textarea></td>
+				<td><input value="${board.bdTitle}" size="58" name="bdTitle"></td>
 			</tr>
 			<tr>
 				<th>CONTENT</th>
 				<td><textarea rows="10" cols="60" name="bdContent">${board.bdContent}</textarea></td>
 			</tr>
-			<td colspan="2">                                    
-				<ul>
-					<c:forEach var="file" items="${board.bdFileName}">                                            
-							<li>${file.originFile}<a href="#" class="filedown"
-							sfolder="${file.saveFolder}" sfile="${file.saveFile}"
-							ofile="${file.originFile}">[다운로드]</a> <img
-							src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                        
-
-						
-					</c:forEach>
-				</ul>
-			</td>
-			<%-- <c:if test="${board.fileName ne null}">
 			<tr>
-				<td>첨부파일</td>
-				<td align="left"><a href="fileDownload.do?fileName=${board.fileName}">${board.fileName}</a></td>
+				<th>FILE</th>
+				<td>
+				<%-- <c:forEach items="${files}" var="file">
+					<a href="fileDownload.do?fno=${file.fno}">${file.orgFileName}</a><br>
+				</c:forEach>
+				<div class="form-group" id="file-list">
+					<a href="#this" onclick="addFile()">파일추가</a>
+					</div> --%>
+				<div class="form-group file-group" id="file-list">
+				<div class="file-add">
+				<a href="#this" onclick="addFile()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>파일추가</a>
+				</div>
+				<c:forEach items="${files}" var="file">
+					<div class="file-input">
+						<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+						<a href="fileDownload.do?fno=${file.fno}">${file.orgFileName}</a>
+					  	<input type="hidden" name="FILE_${file.fno}" value="true">
+						<!-- <a href="#this" name='file-delete'>삭제</a> -->
+						<a href='javascript:;' onClick="fnDelFile(${file.fno})" name='file-delete'>삭제</a>
+					</div>
+				</c:forEach>
+				</div>
+				</td>
 			</tr>
-			</c:if> --%>
-
 		</table>
 		<button type="submit" formmethod="get">수정</button>
 	</form>
-	<a href="deleteboard.do?title=${board.bdTitle}">삭제</a>&nbsp;&nbsp;
+	<a href="deleteboard.do?title=${board.bdTitle}&bno=${board.bno}">삭제</a>&nbsp;&nbsp;
 	<button onclick="location='boardlist.do'">목록</button>
 
 	<!-- 댓글 시작 -->
@@ -53,10 +62,10 @@
 			<li>
 				<div>
 					<form action="/replyModify" method="get">
-						<input type="hidden" name="rno" value="${reply.rno}"> <input
-							type="hidden" name="bno" value="${reply.bno}">
+						<input type="hidden" name="rno" value="${reply.rno}"> 
+						<input type="hidden" name="bno" value="${reply.bno}">
 						<p>${reply.rpWriter}|${reply.rpDate}</p>
-						<textarea rows="3" cols="40" name="rpContent">${reply.rpContent}</textarea>
+						<textarea rows="5" cols="50" name="rpContent">${reply.rpContent}</textarea>
 						<button type="submit">수정</button>
 						<button formaction="/replyDelete" type="submit">삭제</button>
 					</form>
@@ -81,24 +90,40 @@
 		</p>
 	</form>
 	<!-- 댓글 끝 -->
-
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
-		 //file download    
-		$('.filedown').click(
-				function() {
-					alert("원본 :  " + $(this).attr('ofile') + "      실제 :  "
-							+ $(this).attr('sfile'));
-					$(document).find('[name="sfolder"]').val(
-							$(this).attr('sfolder'));
-					$(document).find('[name="ofile"]').val(
-							$(this).attr('ofile'));
-					$(document).find('[name="sfile"]').val(
-							$(this).attr('sfile'));
-					$('#downform').attr('action', '${root}/article/download')
-							.attr('method', 'get').submit();
-				});
+		$(document).ready(function() {
+			$("a[name='file-delete']").on("click", function(e) {
+				e.preventDefault();
+				deleteFile($(this));
+			}); 
+		})
+		
+	
+		function addFile() {
+			var str = "<div class='file-group'><input type='file' name='files'> <a href='#this' name='file-delete'>삭제</a></div>";
+			$("#file-list").append(str);
+			$("a[name='file-delete']").on("click", function(e) {
+				e.preventDefault();
+				deleteFile($(this));
+			});
+		}
+		function deleteFile(obj) {
+			obj.parent().remove();
+			
+		}
+		function fnDelFile(id){
+			console.log(id);
+			$.ajax({
+				url : "request_ajax.jsp",
+				type : "post",
+				data : {"fno" : id},
+				success : function(result){
+					console.log(result);
+					
+				}
+			});
+		}
 	</script>
 </body>
 </html>
-
-
