@@ -55,6 +55,10 @@ public class BoardServicesImpl implements BoardServices {
 		boardDAO.deleteFile(bno);
 	};
 	
+	public void deleteOneFile(int fno) {
+		boardDAO.deleteOneFile(fno);
+	};
+	
 	public void deleteReply(int bno) {
 		boardDAO.deleteReply(bno);
 	};

@@ -24,6 +24,8 @@ public interface BoardDAO {
 	FileDTO selectDownFile(int fno);
 	
 	void deleteFile(int bno);
+	
+	void deleteOneFile(int fno);
 
 	void deleteReply(int bno);
 	

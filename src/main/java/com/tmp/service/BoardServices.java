@@ -24,5 +24,7 @@ public interface BoardServices {
 	
 	void deleteFile(int bno);
 	
+	void deleteOneFile(int fno);
+	
 	void deleteReply(int bno);
 }

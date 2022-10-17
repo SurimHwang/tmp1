@@ -7,7 +7,8 @@
 </head>
 <body>
 	<h3>게시글 보기</h3>
-	<form action="/updateboard" method="get">
+	<form action="/updateboard" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<table border="1">
 			<tr>
 				<th>BNO</th>
@@ -28,30 +29,24 @@
 			<tr>
 				<th>FILE</th>
 				<td>
-				<%-- <c:forEach items="${files}" var="file">
-					<a href="fileDownload.do?fno=${file.fno}">${file.orgFileName}</a><br>
-				</c:forEach>
-				<div class="form-group" id="file-list">
-					<a href="#this" onclick="addFile()">파일추가</a>
-					</div> --%>
-				<div class="form-group file-group" id="file-list">
-				<div class="file-add">
-				<a href="#this" onclick="addFile()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>파일추가</a>
-				</div>
-				<c:forEach items="${files}" var="file">
-					<div class="file-input">
-						<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-						<a href="fileDownload.do?fno=${file.fno}">${file.orgFileName}</a>
-					  	<input type="hidden" name="FILE_${file.fno}" value="true">
-						<!-- <a href="#this" name='file-delete'>삭제</a> -->
-						<a href='javascript:;' onClick="fnDelFile(${file.fno})" name='file-delete'>삭제</a>
+					<div class="form-group file-group" id="file-list">
+						<div class="file-add">
+							<a href="#this" onclick="addFile()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>파일추가</a>
+						</div>
+						<c:forEach items="${files}" var="file">
+							<div class="file-input">
+								<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+								<a href="fileDownload.do?fno=${file.fno}">${file.orgFileName}</a>
+							  	<%-- <input type="hidden" name="FILE_${file.fno}" value="true"> --%>
+							
+								<a href='javascript:;' onClick="fnDelFile(${file.fno})" name='file-delete'>삭제</a>
+							</div>
+						</c:forEach>
 					</div>
-				</c:forEach>
-				</div>
 				</td>
 			</tr>
 		</table>
-		<button type="submit" formmethod="get">수정</button>
+		<button type="submit">수정</button>
 	</form>
 	<a href="deleteboard.do?title=${board.bdTitle}&bno=${board.bno}">삭제</a>&nbsp;&nbsp;
 	<button onclick="location='boardlist.do'">목록</button>
@@ -90,6 +85,7 @@
 		</p>
 	</form>
 	<!-- 댓글 끝 -->
+	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -114,13 +110,21 @@
 		}
 		function fnDelFile(id){
 			console.log(id);
+			
+			$("a[name='file-delete']").on("click", function(e) {
+				e.preventDefault();
+				deleteFile($(this));
+			}); 
+			 
 			$.ajax({
-				url : "request_ajax.jsp",
+				url : "/request_ajax",
 				type : "post",
-				data : {"fno" : id},
-				success : function(result){
-					console.log(result);
-					
+				data : { 
+					fno : id
+				},
+				
+				success : function(data){
+					console.log(data);
 				}
 			});
 		}

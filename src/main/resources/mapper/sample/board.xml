@@ -74,6 +74,12 @@
 	where bno=#{bno}
 	</delete>
 	
+	<delete id="deleteOneFile" parameterType="int">
+	delete
+	from tmp_file
+	where fno=#{fno}
+	</delete>
+	
 	<delete id="deleteReply" parameterType="int">
 	delete 
 	from tmp_reply
