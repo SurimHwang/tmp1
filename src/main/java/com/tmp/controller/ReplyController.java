@@ -33,7 +33,7 @@ public class ReplyController {
 			
 			replyServices.replyModify(dto);
 			
-			return "redirect:/boardlist.do";
+			return "redirect:/selectone?bno=" + dto.getBno();
 		}
 		
 		// 댓글 삭제

@@ -20,7 +20,8 @@
 	<!-- 댓글 수정 -->
 	<update id="replyModify" parameterType="com.tmp.dto.ReplyDTO">
 		update tmp_reply set
-			rpContent = #{rpContent}
+			rpContent = #{rpContent},
+			rpDate = now()
 		where rno = #{rno}	
 	</update>
 	

@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.tmp.dto.BoardDTO;
 import com.tmp.dto.FileDTO;
 import com.tmp.dto.ReplyDTO;
+import com.tmp.dto.TestDTO;
 import com.tmp.service.BoardServices;
 import com.tmp.service.ReplyServices;
 
@@ -65,6 +66,7 @@ public class BoardController {
 
 	@RequestMapping(value = "writeboard.do")
 	public String writeBoard(HttpSession session, Model model) {
+		model.addAttribute("nextBno", BoardServices.selectNextBno());
 		return "writeboard";
 	}
 
@@ -77,45 +79,48 @@ public class BoardController {
 		UUID uuid = null;
 
 		 List<MultipartFile> uploadfile = dto.getFiles();
-		// 파일리스트가 들어오는지 System.out으로 확인한 후 DB에 연결하고 화면뷰에 띄우기
 		
 		List<FileDTO> list = new ArrayList<FileDTO>();
 
-		BoardServices.insertBoard(dto);
-		
-		for (MultipartFile file : uploadfile) {
-			if (!uploadfile.isEmpty()) {
-				String originalFileName =  new String(file.getOriginalFilename());
-				String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
-			    System.out.println("orgFileName: "+originalFileName);
-				
-			    do { 
-			    	uuid = UUID.randomUUID(); // UUID 구하기 
-			    	fileName = uuid + "." + ext;
-			    	destinationFile = new File(fileUrl + fileName);
-				} while (destinationFile.exists());
-			  
-				destinationFile.getParentFile().mkdirs();
-				file.transferTo(destinationFile);
-
-				FileDTO fdto = new FileDTO();
-				
-				fdto.setBno(dto.getBno());
-				fdto.setFileUrl(fileUrl);
-				fdto.setMetaFileName(fileName);
-				fdto.setOrgFileName(originalFileName);
-				
-				list.add(fdto);
-			
-				BoardServices.insertFile(fdto);
-			}
+		if(dto.getBdTitle().isBlank()==true) {
+			return "writeboard";
 		}
+		else {
+			BoardServices.insertBoard(dto);
 		
 		
-
-		System.out.println("저장 성공");
-
-		return "redirect:/boardlist.do";
+			if (uploadfile!=null) {
+				for (MultipartFile file : uploadfile) {
+					String originalFileName =  new String(file.getOriginalFilename());
+					String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
+				    System.out.println("orgFileName: "+originalFileName);
+					
+				    do { 
+				    	uuid = UUID.randomUUID(); // UUID 구하기 
+				    	fileName = uuid + "." + ext;
+				    	destinationFile = new File(fileUrl + fileName);
+					} while (destinationFile.exists());
+				  
+					destinationFile.getParentFile().mkdirs();
+					file.transferTo(destinationFile);
+	
+					FileDTO fdto = new FileDTO();
+					
+					fdto.setBno(dto.getBno());
+					fdto.setFileUrl(fileUrl);
+					fdto.setMetaFileName(fileName);
+					fdto.setOrgFileName(originalFileName);
+					
+					list.add(fdto);
+				
+					BoardServices.insertFile(fdto);
+				}
+			}
+	
+			System.out.println("저장 성공");
+	
+			return "redirect:/boardlist.do";
+		}
 	}
 
 	@RequestMapping(value = "/deleteboard.do", method = {RequestMethod.GET, RequestMethod.POST} )
@@ -146,13 +151,11 @@ public class BoardController {
 		UUID uuid = null;
 
 		 List<MultipartFile> uploadfile = dto.getFiles();
-		// 파일리스트가 들어오는지 System.out으로 확인한 후 DB에 연결하고 화면뷰에 띄우기
-		 //System.out.println(uploadfile);
 		
 		List<FileDTO> list = new ArrayList<FileDTO>();
 		
-		for (MultipartFile file : uploadfile) {
-			if (!uploadfile.isEmpty()) {
+		if (uploadfile!=null) {
+			for (MultipartFile file : uploadfile) {
 				String originalFileName =  new String(file.getOriginalFilename());
 				String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
 			    System.out.println("orgFileName: "+originalFileName);

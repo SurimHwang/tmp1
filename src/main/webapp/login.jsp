@@ -6,16 +6,15 @@
 <title>Login</title>
 </head>
 <body>
-	<h3>로그인</h3>
-	<form action="/login" method="get">
-		이메일 : <input name="email" type="text" /> <br /> 
-		이름 : <input name="userName" type="text" /><br />
-		<button type="submit">로그인</button>
-	</form>
-	<form action="/signuppage.do" method="post">
-		<button>회원가입 페이지</button>
-	</form>
-
+	<div style="margin-top:50px; text-align: center;">
+		<h3>로그인</h3>
+		<form action="/login" method="get" style="display:inline-block;">
+			이메일 : <input name="email" type="text" /> <br /> 
+			이름 : <input name="userName" type="text" /><br />
+			<br/>
+			<button type="submit">완료</button>
+			<button type="button" onclick="location='/signuppage.do'" formmethod="post">회원가입 페이지</button>
+		</form>
+	</div>
 </body>
 </html>
-

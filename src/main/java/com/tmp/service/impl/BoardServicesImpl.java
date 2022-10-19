@@ -62,4 +62,8 @@ public class BoardServicesImpl implements BoardServices {
 	public void deleteReply(int bno) {
 		boardDAO.deleteReply(bno);
 	};
+	
+	public int selectNextBno() {
+		return boardDAO.selectNextBno();
+	}
 }

@@ -10,38 +10,40 @@
 <title>WriteBoard</title>
 </head>
 <body>
-	<h3>게시글 작성</h3>
-
-	<form action="/insertboard?" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-		<table border="1">
-			<tr>
-				<th>NAME</th>
-				<td><textarea rows="1" cols="60" name="bdName"
-						readonly="readonly"><%String name = (String) session.getAttribute("userName");%><%=name%></textarea></td>
-			</tr>
-			<tr>
-				<th>TITLE</th>
-				<td><textarea rows="1" cols="60" name="bdTitle"></textarea></td>
-			</tr>
-			<tr>
-				<th>CONTENT</th>
-				<td><textarea rows="10" cols="60" name="bdContent"></textarea></td>
-			</tr>
-			<tr>
-				<td width="60">첨부파일</td>
-				<td><div class="form-group" id="file-list">
-					<a href="#this" onclick="addFile()">파일추가</a>
-					<!-- <div class="file-group"><input type='file' name='uploadFile'>
-						<a href='#this' name='file-delete'>삭제</a>
-					</div> -->
-					</div>
-				</td>
-			</tr>
-		</table>
-		<button type="submit">저장</button>
-	</form>
-	<button onclick="location='boardlist.do'">목록</button>
-
+	<div style="width:100%; display:flex; flex-direction: column; align-items:center;">
+		<h3>게시글 작성</h3>
+		<form action="/insertboard?" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+			<table border="1">
+				<tr>
+					<th>BNO</th>
+					<td>${nextBno}</td>
+				</tr>
+				<tr>
+					<th>NAME</th>
+					<td><input name="bdName"  style="width:443px" readonly="readonly" value="<%String name = (String) session.getAttribute("userName");%><%=name%>"></td>
+				</tr>
+				<tr>
+					<th>TITLE</th>
+					<td><input name="bdTitle" type="text" style="width:443px"></td>
+				</tr>
+				<tr>
+					<th>CONTENT</th>
+					<td><textarea rows="10" cols="60" name="bdContent"></textarea></td>
+				</tr>
+				<tr>
+					<td width="60">첨부파일</td>
+					<td>
+						<div class="form-group" id="file-list">
+							<button type="button" onclick="javascript:addFile()">파일추가</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+			</br>
+			<button type="submit" style="float:right">저장</button>
+			<button type="button" onclick="location='boardlist.do'" style="float:right">목록</button>
+		</form>
+	</div>
 	﻿
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">

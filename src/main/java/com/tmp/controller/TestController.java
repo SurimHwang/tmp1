@@ -53,7 +53,7 @@ public class TestController {
 
 		System.out.println("회원가입 성공");
 
-		return "forward:/boardlist.do";
+		return "../../login";
 	}
 
 	@RequestMapping(value = "/updateUserName", method = RequestMethod.POST)

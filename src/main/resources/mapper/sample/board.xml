@@ -91,4 +91,11 @@
 	set bdContent=#{bdContent}, bdTitle=#{bdTitle}
 	where bno=#{bno}
 	</update>
+	
+	<select id="selectNextBno" resultType="int">
+	select Auto_increment 
+	from information_schema.tables 
+	where table_schema="groupware" 
+	and table_name="tmp_board"
+	</select>
 </mapper>

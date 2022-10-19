@@ -29,4 +29,6 @@ public interface BoardDAO {
 
 	void deleteReply(int bno);
 	
+	int selectNextBno();
+	
 }
